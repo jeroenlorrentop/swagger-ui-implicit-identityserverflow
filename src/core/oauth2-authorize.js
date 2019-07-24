@@ -20,7 +20,17 @@ export default function authorize ( { auth, authActions, errActions, configs, au
       break
 
     case "implicit":
-      query.push("response_type=token")
+      function randomNonce(length) {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for(var i = 0; i < length; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
+      }
+    
+      query.push("response_type=id_token token")
+      query.push("nonce=" + randomNonce(12))
       break
 
     case "clientCredentials":
